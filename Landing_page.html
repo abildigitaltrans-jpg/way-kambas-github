@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Taman Nasional Way Kambas - Landing Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        @page {
+            size: A4;
+            margin: 0; /* Full bleed layout control */
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #2c3e50;
+            background-color: #f4f6f4;
+            margin: 0;
+            padding: 0;
+            font-size: 10.5pt;
+            line-height: 1.5;
+        }
+        
+        /* Container styling to map A4 pages cleanly in WeasyPrint */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            position: relative;
+            page-break-after: always;
+            background-color: #fafbf9;
+            overflow: hidden;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background-color: rgba(18, 48, 32, 0.95);
+            padding: 15px 40px;
+            color: #ffffff;
+            display: table;
+            width: 100%;
+        }
+        .nav-logo {
+            display: table-cell;
+            font-size: 16pt;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #e2f0d9;
+            vertical-align: middle;
+        }
+        .nav-links {
+            display: table-cell;
+            text-align: right;
+            vertical-align: middle;
+            font-size: 10pt;
+        }
+        .nav-links span {
+            margin-left: 20px;
+            color: #cbdcc4;
+        }
+
+        /* Hero Section */
+        .hero {
+           background: url('img/WhatsApp Image 2026-04-15 at 20.26.34.jpeg') no-repeat center/cover;
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            height: 110mm;
+        }
+        .hero h1 {
+            font-size: 26pt;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-family: 'Georgia', serif;
+            font-weight: normal;
+        }
+        .hero p {
+            font-size: 12pt;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            color: #e2f0d9;
+            line-height: 1.6;
+        }
+        .cta-btn {
+            display: inline-block;
+            background-color: #d97706;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 11pt;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        .cta-secondary {
+            display: inline-block;
+            background-color: transparent;
+            color: #e2f0d9;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 11pt;
+            margin-left: 15px;
+            border: 1px solid #e2f0d9;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background-color: #2d5a37;
+            color: white;
+            display: table;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .stat-col {
+            display: table-cell;
+            width: 33.33%;
+        }
+        .stat-num {
+            font-size: 20pt;
+            font-weight: bold;
+            color: #fbbf24;
+            display: block;
+        }
+        .stat-label {
+            font-size: 9.5pt;
+            color: #e2f0d9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Content Sections */
+        
+        .section-title {
+            font-family: 'Georgia', serif;
+            font-size: 18pt;
+            color: #123020;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 10pt;
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .about-block {
+            padding: 0 40px;
+            text-align: justify;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .about-card {
+            background-color: #f0f4f1;
+            border-left: 5px solid #2d5a37;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Features / Experience Table layout for columns */
+        .features-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px;
+            margin-top: 10px;
+        }
+        .feature-cell {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #2d5a37;
+            border-radius: 4px;
+            padding: 20px;
+            vertical-align: top;
+            width: 33.33%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .feature-cell h3 {
+            font-size: 12pt;
+            color: #123020;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .feature-cell p {
+            font-size: 9.5pt;
+            color: #475569;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Testimonial & Lower CTA Page 2 */
+        .testimonial-container {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            margin: 40px;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .testimonial-text {
+            font-style: italic;
+            font-size: 12pt;
+            color: #1e293b;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .testimonial-author {
+            font-weight: bold;
+            color: #2d5a37;
+            font-size: 10pt;
+        }
+
+        .bottom-cta-banner {
+            background-color: #123020;
+            color: white;
+            margin: 40px;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .bottom-cta-banner h2 {
+            font-family: 'Georgia', serif;
+            font-size: 18pt;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        .bottom-cta-banner p {
+            color: #cbdcc4;
+            margin-bottom: 25px;
+            font-size: 11pt;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 35px 40px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            font-size: 9pt;
+        }
+        .footer-table {
+            width: 100%;
+        }
+        .footer-col {
+            vertical-align: top;
+            width: 33.33%;
+        }
+        .footer-col h4 {
+            color: #f8fafc;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 10pt;
+        }
+        .footer-links div {
+            margin-bottom: 6px;
+        }
+        .copyright {
+            border-top: 1px solid #334155;
+            margin-top: 25px;
+            padding-top: 15px;
+            text-align: center;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: HERO & ATAS -->
+    <div class="page">
+        <!-- Header / Navigation Bar -->
+        <div class="navbar">
+            <div class="nav-logo">WAY KAMBAS</div>
+            <div class="nav-links">
+                <span>Beranda</span>
+                <span>Tentang Kami</span>
+                <span>Konservasi</span>
+                <span>Kontak</span>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Menyatu dengan Alam,<br>Melindungi Warisan Dunia</h1>
+            <p>Jelajahi rumah alami bagi Gajah Sumatra dan Badak Sumatra yang langka. Rasakan petualangan ekowisata sejati langsung di jantung Lampung.</p>
+            <a href="#" class="cta-btn">Pesan Tiket Sekarang</a>
+        </div>
+
+        <!-- Social Proof / Stats Section -->
+        <div class="stats-bar">
+            <div class="stat-col">
+                <span class="stat-num">1.300+ km²</span>
+                <span class="stat-label">Luas Hutan Lindung</span>
+            </div>
+            <div class="stat-col">
+                <span class="stat-num">300+ Spesies</span>
+                <span class="stat-label">Burung & Satwa Liar</span>
+            </div>
+            <div class="stat-col">
+                <span class="stat-num">100%</span>
+                <span class="stat-label">Ekowisata Lokal</span>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="section-title" style="margin-top: 35px;">Suaka Alami di Ujung Sumatra</div>
+        <div class="section-subtitle">Benteng terakhir perlindungan satwa kritis dunia</div>
+        
+        <div class="about-block">
+            Taman Nasional Way Kambas (TNWK) bukan sekadar destinasi tempat wisata biasa. Ini adalah salah satu kawasan konservasi tertua di Indonesia yang berfokus penuh pada perlindungan flora dan fauna yang kian terancam punah. Melalui kunjungan ekowisata ini, Anda turut berkontribusi langsung dalam mendukung program pelestarian gajah, patroli pencegahan perburuan liar, serta penanaman kembali hutan Sumatra yang terdampak.
+            
+            <div class="about-card">
+                <strong>Kontribusi Nyata Anda:</strong> Setiap tiket masuk dan pemesanan layanan pemandu lokal dialokasikan untuk pemeliharaan Pusat Latihan Gajah serta pemberdayaan masyarakat desa penyangga di sekitar taman nasional.
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: FITUR, TESTIMONI & FOOTER -->
+    <div class="page">
+        <div class="section-image" style="text-align: center;"><img src="img/WhatsApp Image 2026-04-15 at 20.05.16.jpeg" height="500" width="500" ></div>
+        <div class="section-title" style="margin-top: 30px;">Pengalaman Tak Terlupakan</div>
+        <div class="section-subtitle">Aktivitas terbaik yang menanti Anda di Way Kambas</div>
+
+        <!-- Features Grid using HTML Table for PDF compatibility -->
+        <table class="features-table">
+            <tr>
+                <td class="feature-cell">
+                    <h3>Pusat Latihan Gajah</h3>
+                    <p>Lihat dari dekat bagaimana gajah-gajah Sumatra dirawat, dilatih, dan hidup berdampingan secara harmonis dengan para mahout (pawang gajah) profesional.</p>
+                </td>
+                <td class="feature-cell">
+                    <h3>Safari Susur Sungai</h3>
+                    <p>Arungi sungai legendaris Way Kanan menggunakan perahu motor sambil mengamati satwa liar seperti buaya muara, monyet ekor panjang, dan berbagai reptil purba.</p>
+                </td>
+                <td class="feature-cell">
+                    <h3>Wildlife Tracking</h3>
+                    <p>Surga bagi para pengamat burung dan fotografer alam wild. Temukan spesies langka seperti Bebek Sayap Putih langsung di habitat asli mereka.</p>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Testimonial Section -->
+        <div class="testimonial-container">
+            <div class="testimonial-text">"Pengalaman magis! Melihat gajah-gajah mandi di sore hari dan belajar tentang konservasi langsung dari ahlinya mengubah cara pandang saya tentang alam dan masa depan bumi."</div>
+            <div class="testimonial-author">— Andini, Traveler & Fotografer</div>
+        </div>
+
+        <!-- Call To Action Banner -->
+        <div class="bottom-cta-banner">
+            <h2>Siap Memulai Petualangan Ekowisata Anda?</h2>
+            <p>Kuota kunjungan harian dibatasi secara ketat demi menjaga kenyamanan serta kelestarian satwa liar di habitatnya.</p>
+            <a href="#" class="cta-btn" style="background-color: #fbbf24; color: #123020;">Daftar & Booking Tur Sekarang</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <table class="footer-table">
+                <tr>
+                    <td class="footer-col">
+                        <h4>Hubungi Kami</h4>
+                        <div style="line-height: 1.6;">
+                            Balai Taman Nasional Way Kambas<br>
+                            Lampung Timur, Provinsi Lampung,<br>
+                            Indonesia
+                        </div>
+                    </td>
+                    <td class="footer-col footer-links" style="padding-left: 20px;">
+                        <h4>Navigasi Legal</h4>
+                        <div>Kebijakan Privasi</div>
+                        <div>Syarat & Ketentuan</div>
+                        <div>Panduan Kunjungan</div>
+                    </td>
+                    <td class="footer-col" style="padding-left: 20px;">
+                        <h4>Media Sosial</h4>
+                        <div>Instagram: @tnwaykambas</div>
+                        <div>YouTube: Way Kambas Media</div>
+                    </td>
+                </tr>
+            </table>
+            <div class="copyright">
+                &copy; 2026 Taman Nasional Way Kambas. Hak Cipta Dilindungi Undang-Undang.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
